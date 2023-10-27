@@ -6,11 +6,10 @@
 #include <sys/mman.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stddef.h>
 
-void *malloc(size_t size)
-{
-	/* TODO: Implement malloc(). */
-	return NULL;
+void* my_alloc(size_t size) {
+    return NULL;
 }
 
 void *calloc(size_t nmemb, size_t size)
@@ -21,7 +20,7 @@ void *calloc(size_t nmemb, size_t size)
 
 void free(void *ptr)
 {
-	/* TODO: Implement free(). */
+ 	/* TODO: Implement free(). */
 }
 
 void *realloc(void *ptr, size_t size)
