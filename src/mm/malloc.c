@@ -8,25 +8,57 @@
 #include <stdlib.h>
 #include <stddef.h>
 
-void* my_alloc(size_t size) {
-    return NULL;
+void* malloc(size_t size) {
+    
+    void* pointer = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    
+    if (pointer == MAP_FAILED) {
+        return NULL; // alocarea a esuat
+    }
+	mem_list_add(pointer, size);
+   
+
+    return pointer;
 }
+
 
 void *calloc(size_t nmemb, size_t size)
 {
-	/* TODO: Implement calloc(). */
-	return NULL;
+	size_t total = nmemb * size;
+
+    // Allocate memory using your mem_list
+    void* pointer = malloc(total);
+
+    if (pointer == NULL) {
+        return NULL; 
+    }
+
+    // pun zerouri peste tot
+    memset(pointer, 0, total);
+
+    return pointer;
+
 }
 
 void free(void *ptr)
 {
- 	/* TODO: Implement free(). */
+ 	 if (ptr == NULL) {
+        return; 
+    }
+
+    struct mem_list* item = (struct mem_list*)((char*)ptr - sizeof(struct mem_list));
+
+   
+    mem_list_del(item->start);
+
+    munmap(item, sizeof(struct mem_list));
+
 }
 
 void *realloc(void *ptr, size_t size)
 {
 	/* TODO: Implement realloc(). */
-	return NULL;
+
 }
 
 void *reallocarray(void *ptr, size_t nmemb, size_t size)
