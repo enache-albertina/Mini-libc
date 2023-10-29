@@ -59,37 +59,36 @@ void *realloc(void *ptr, size_t size)
 		return malloc(size);
 	}
 
-   /// daca dimensiunea este 0, atunci eliberam memoria
-   if (!size) {
-	   free(ptr);
-	   return NULL;
-   }
+	// daca dimensiunea este 0, atunci eliberam memoria
+	if (!size) {
+		free(ptr);
+		return NULL;
+	}
 
-   struct mem_list* pointer = mem_list_find(ptr);
+	struct mem_list* pointer = mem_list_find(ptr);
 
-   if(pointer) {
-	   if(size <= pointer->len) {
+	if (pointer) {
+		if (size <= pointer->len) {
 			pointer->len = size;
-		   return ptr;
-	   } else {
-		   void* aux_pointer = malloc(size);
-		   if(aux_pointer) {
+			return ptr;
+		} else {
+			void* aux_pointer = malloc(size);
+			if (aux_pointer) {
 			// copiez datele din vechiul pointer in noul pointer
-			   memcpy(aux_pointer, ptr, pointer->len);
-			   free(ptr);
-			   return aux_pointer;
-		   } else {
-			   return NULL;
-		   }	
-	   }
-	   return malloc(size);
-   }
+				memcpy(aux_pointer, ptr, pointer->len);
+				free(ptr);
+				return aux_pointer;
+			} else {
+				return NULL;
+			}
+		}
+		return malloc(size);
+	}
 }
 
 //https://github.com/bminor/musl/blob/79bdacff83a6bd5b70ff5ae5eb8b6de82c2f7c30/src/malloc/reallocarray.c#L5
 void *reallocarray(void *ptr, size_t nmemb, size_t size)
 {
-
 	if (nmemb && size > -1 / size) {
 		errno = ENOMEM;
 		return NULL;
@@ -98,3 +97,4 @@ void *reallocarray(void *ptr, size_t nmemb, size_t size)
 	return realloc(ptr, nmemb * size);
 	
 }
+

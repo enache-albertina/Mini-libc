@@ -4,7 +4,6 @@
 
 int sleep(unsigned sec)
 {
-    
     struct timespec req = {sec, 0};
     struct timespec rem = {0, 0};
     int ret = nanosleep(&req, &rem);
