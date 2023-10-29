@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 #include <string.h>
+#define MAX_DIM 1000
 
 char *strcpy(char *destination, const char *source)
 {
@@ -203,7 +204,7 @@ void *memmove(void *destination, const void *source, size_t num)
 {
 	char *d = (char*) destination;
 	const char *s = (const char *)source;
-	char aux[num];
+	char aux[MAX_DIM];
 	// programare defensiva
 	if (aux == NULL)
 		return NULL;
