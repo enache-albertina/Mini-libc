@@ -48,7 +48,7 @@ void free(void *ptr)
     if (pointer == NULL) {
         return;
     }
-
+    munmap(ptr, pointer->len);
     mem_list_del(pointer);
 }
 
