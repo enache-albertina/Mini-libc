@@ -70,13 +70,13 @@ int strcmp(const char *str1, const char *str2)
 		str1++;
 		str2++;
 	}
-	
+
 
     if (*str1 == *str2)
         return 0;
     if (*str1 < *str2)
         return -1;
-	
+
 	return 1;
 }
 
@@ -85,7 +85,7 @@ int strncmp(const char *str1, const char *str2, size_t len)
 {
     if (len == 0)
         return 0;
-	
+
 	size_t nr_len = 0;
     while (*str1 == *str2 && *str1 && len - 1 > nr_len) {
         str1++;
@@ -97,7 +97,7 @@ int strncmp(const char *str1, const char *str2, size_t len)
         return 0;
     if (*str1 < *str2)
         return -1;
-    
+
     return 1;
 }
 
@@ -126,16 +126,16 @@ char *strchr(const char *str, int c)
 char *strrchr(const char *str, int c)
 {
     const char *copy = NULL;
-    
+
     while (*str) {
 		str++;
         if (*str == (char)c)
-            copy = str; 
+            copy = str;
     }
 
     if (*str == (char)c)
         return (char *)str;
-    
+
     return (char *)copy;
 }
 
@@ -181,7 +181,7 @@ char *strrstr(const char *haystack, const char *needle)
         needle = pointer2;
     }
 
-    
+
 	return result;
 }
 
@@ -190,7 +190,7 @@ void *memcpy(void *destination, const void *source, size_t num)
 	char *d = (char *)destination;
     const char *s = (const char *)source;
 
-    for(size_t i = 0; i < num; ++i) {
+    for (size_t i = 0; i < num; ++i) {
         *d = *s;
         d++;
         s++;
@@ -201,7 +201,6 @@ void *memcpy(void *destination, const void *source, size_t num)
 
 void *memmove(void *destination, const void *source, size_t num)
 {
-	
 	char *d = (char*) destination;
 	const char *s = (const char *)source;
 	char aux[num];
