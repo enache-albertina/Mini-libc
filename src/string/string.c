@@ -13,7 +13,7 @@ char *strcpy(char *destination, const char *source)
 	}
 
 	*pointer = '\0';
-	
+
 	return pointer;
 }
 
@@ -34,7 +34,7 @@ char *strncpy(char *destination, const char *source, size_t len)
         pointer++;
         nr_len++;
     }
-	
+
 	return pointer;
 }
 
@@ -46,11 +46,10 @@ char *strcat(char *destination, const char *source)
 
     while (*destination)
       destination++;
-    while (*destination++ = *source++) 
+    while (*destination++ = *source++)
 	;
 
     return rdest;
-	
 }
 
 char *strncat(char *destination, const char *source, size_t len)
@@ -60,9 +59,8 @@ char *strncat(char *destination, const char *source, size_t len)
 
     while (*destination)
       destination++;
-    while (*destination++ = *source++ && nr_len < len) 
+    while (*destination++ = *source++ && nr_len < len)
 		nr_len++;
-    
     return rdest;
 }
 
