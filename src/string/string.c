@@ -164,9 +164,9 @@ char *strstr(const char *haystack, const char *needle)
 
 char *strrstr(const char *haystack, const char *needle)
 {
-	char *result = NULL;
+	const char *result = NULL;
 	 while (*haystack != '\0') {
-        char *pointer1 = haystack, *pointer2 = needle;
+        const char *pointer1 = haystack, *pointer2 = needle;
 
         while (*haystack == *needle && *needle != '\0') {
             haystack++;
@@ -180,9 +180,7 @@ char *strrstr(const char *haystack, const char *needle)
         haystack = pointer1 + 1;
         needle = pointer2;
     }
-
-
-	return result;
+	return (char*)result;
 }
 
 void *memcpy(void *destination, const void *source, size_t num)
