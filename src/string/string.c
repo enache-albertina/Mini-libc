@@ -42,8 +42,7 @@ char *strncpy(char *destination, const char *source, size_t len)
 char *strcat(char *destination, const char *source)
 {
 	// https://stackoverflow.com/questions/2488563/strcat-implementation
-		char *rdest = destination;
-	size_t nr_len = 0;
+	char *rdest = destination;
 
     while (*destination)
       destination++;
