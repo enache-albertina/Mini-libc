@@ -13,10 +13,10 @@ int puts(const char *s)
 {
     int ret = 0;
     int i = 0;
-    for( ;s[i] != '\0';++i)
+    for ( ;s[i] != '\0';++i)
     {
         ret = write(1, &s[i], 1);
-        if(ret < 0)
+        if (ret < 0)
             return EOF;
     }
     ret = write(1, "\n", 1);

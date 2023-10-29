@@ -210,9 +210,9 @@ void *memmove(void *destination, const void *source, size_t num)
 		return NULL;
 
 	size_t i;
-	for(i = 0; i < num; i++) 
+	for(i = 0; i < num; i++)
 		aux[i] = s[i];
-	for(i = 0; i < num; i++) 
+	for(i = 0; i < num; i++)
 		d[i] = aux[i];
 
 	return destination;
