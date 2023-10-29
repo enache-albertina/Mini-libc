@@ -46,7 +46,7 @@ char *strcat(char *destination, const char *source)
 
     while (*destination)
       destination++;
-    while (*destination++ = *source++)
+    while ((*destination++ = *source++))
 	;
 
     return rdest;
@@ -58,8 +58,8 @@ char *strncat(char *destination, const char *source, size_t len)
 	size_t nr_len = 0;
 
     while (*destination)
-      destination++;
-    while (*destination++ = *source++ && nr_len < len)
+        destination++;
+    while ((*destination++ = *source++ && nr_len < len))
 		nr_len++;
     return rdest;
 }
@@ -74,18 +74,18 @@ int strcmp(const char *str1, const char *str2)
 
     if (*str1 == *str2)
         return 0;
-    if (*str1 < *str2)
+    if (*str1 < *str2) {
         return -1;
-
+    }
 	return 1;
 }
 
 
 int strncmp(const char *str1, const char *str2, size_t len)
 {
-    if (len == 0)
+    if (len == 0) {
         return 0;
-
+    }
 	size_t nr_len = 0;
     while (*str1 == *str2 && *str1 && len - 1 > nr_len) {
         str1++;
@@ -164,9 +164,9 @@ char *strstr(const char *haystack, const char *needle)
 
 char *strrstr(const char *haystack, const char *needle)
 {
-	const char *result = NULL;
+	char *result = NULL;
 	 while (*haystack != '\0') {
-        const char *pointer1 = haystack, *pointer2 = needle;
+        char *pointer1 = haystack, *pointer2 = needle;
 
         while (*haystack == *needle && *needle != '\0') {
             haystack++;
