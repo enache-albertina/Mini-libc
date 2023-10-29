@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <errno.h>
 
 void* malloc(size_t size) {
     
@@ -16,7 +17,6 @@ void* malloc(size_t size) {
         return NULL; // alocarea a esuat
     }
 	mem_list_add(pointer, size);
-   
 
     return pointer;
 }
@@ -26,7 +26,6 @@ void *calloc(size_t nmemb, size_t size)
 {
 	size_t total = nmemb * size;
 
-    // Allocate memory using your mem_list
     void* pointer = malloc(total);
 
     if (pointer == NULL) {
@@ -42,27 +41,63 @@ void *calloc(size_t nmemb, size_t size)
 
 void free(void *ptr)
 {
- 	 if (ptr == NULL) {
+ 	if (ptr == NULL) {
+        return; // Dacă pointer-ul este NULL, nu facem nimic
+    }
+
+    struct mem_list* pointer = mem_list_find(ptr);
+
+    if (pointer == NULL) {
         return; 
     }
 
-    struct mem_list* item = (struct mem_list*)((char*)ptr - sizeof(struct mem_list));
-
-   
-    mem_list_del(item->start);
-
-    munmap(item, sizeof(struct mem_list));
+    mem_list_del(pointer);
 
 }
 
 void *realloc(void *ptr, size_t size)
 {
-	/* TODO: Implement realloc(). */
+   // daca adressa data este NULL, atunci allocam cu malloc
+   if(!ptr) {
+	   return malloc(size);
+   }
 
+   /// daca dimensiunea este 0, atunci eliberam memoria
+   if(!size) {
+	   free(ptr);
+	   return NULL;
+   }
+
+   struct mem_list* pointer = mem_list_find(ptr);
+
+   if(pointer) {
+	   if(size <= pointer->len) {
+			pointer->len = size;
+		   return ptr;
+	   } else {
+		   void* aux_pointer = malloc(size);
+		   if(aux_pointer) {
+			// copiez datele din vechiul pointer in noul pointer
+			   memcpy(aux_pointer, ptr, pointer->len);
+			   free(ptr);
+			   return aux_pointer;
+		   } else {
+			   return NULL;
+		   }	
+	   }
+	   return malloc(size);
+   }
 }
 
+//https://github.com/bminor/musl/blob/79bdacff83a6bd5b70ff5ae5eb8b6de82c2f7c30/src/malloc/reallocarray.c#L5
 void *reallocarray(void *ptr, size_t nmemb, size_t size)
 {
-	/* TODO: Implement reallocarray(). */
-	return NULL;
+
+	if (nmemb && size > -1 / size) {
+		errno = ENOMEM;
+		return NULL;
+	}
+
+	return realloc(ptr, nmemb * size);
+	
 }
