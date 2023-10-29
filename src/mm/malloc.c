@@ -10,7 +10,6 @@
 #include <errno.h>
 
 void* malloc(size_t size) {
-    
     void* pointer = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     
     if (pointer == MAP_FAILED) {
@@ -36,7 +35,6 @@ void *calloc(size_t nmemb, size_t size)
     memset(pointer, 0, total);
 
     return pointer;
-
 }
 
 void free(void *ptr)
