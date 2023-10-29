@@ -49,7 +49,7 @@ void free(void *ptr)
         return;
     }
     munmap(ptr, pointer->len);
-    mem_list_del(pointer);
+    mem_list_del(ptr);
 }
 
 void *realloc(void *ptr, size_t size)
