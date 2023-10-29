@@ -11,7 +11,7 @@
 
 void* malloc(size_t size) {
     void* pointer = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    
+
     if (pointer == MAP_FAILED) {
         return NULL; // alocarea a esuat
     }
@@ -28,7 +28,7 @@ void *calloc(size_t nmemb, size_t size)
     void* pointer = malloc(total);
 
     if (pointer == NULL) {
-        return NULL; 
+        return NULL;
     }
 
     // pun zerouri peste tot
@@ -39,29 +39,28 @@ void *calloc(size_t nmemb, size_t size)
 
 void free(void *ptr)
 {
- 	if (ptr == NULL) {
+	if (ptr == NULL) {
         return; // Dacă pointer-ul este NULL, nu facem nimic
     }
 
     struct mem_list* pointer = mem_list_find(ptr);
 
     if (pointer == NULL) {
-        return; 
+        return;
     }
 
     mem_list_del(pointer);
-
 }
 
 void *realloc(void *ptr, size_t size)
 {
-   // daca adressa data este NULL, atunci allocam cu malloc
-   if(!ptr) {
-	   return malloc(size);
-   }
+	// daca adressa data este NULL, atunci allocam cu malloc
+	if (!ptr) {
+		return malloc(size);
+	}
 
    /// daca dimensiunea este 0, atunci eliberam memoria
-   if(!size) {
+   if (!size) {
 	   free(ptr);
 	   return NULL;
    }
